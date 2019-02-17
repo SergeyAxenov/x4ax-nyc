@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  mysql_nyc:
+    build:
+      context: .
+      dockerfile: Dockerfile-mysql
+    ports:
+      - 3307:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=my-secret-pw
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+      - MYSQL_DATABASE=nyc
+    volumes:
+      - ./data/source:/var/source
+      - ./data/initdb:/docker-entrypoint-initdb.d
+      - ./data/db/:/var/lib/mysql
+
+  web:
+    image: tomcat
+    ports:
+    - 8091:8080
+    volumes:
+    - ./target/x4ax-nyc-1.0.0-SNAPSHOT.war:/usr/local/tomcat/webapps/x4ax.war

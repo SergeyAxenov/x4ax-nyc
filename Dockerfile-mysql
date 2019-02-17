@@ -1,0 +1,6 @@
+FROM mysql:5.7
+
+RUN apt-get update && apt-get install -y --force-yes unzip
+COPY data/source/ny_cab_data_cab_trip_data_full.sql.zip /tmp/
+
+RUN unzip /tmp/ny_cab_data_cab_trip_data_full.sql.zip -d /tmp
